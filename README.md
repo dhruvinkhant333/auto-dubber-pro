@@ -1,155 +1,172 @@
-Here is your perfectly formatted and assembled `README.md` file.
+# 🎙️ Auto Dubber Pro
+### AI-Powered YouTube Shorts Localization Pipeline
 
-I cleaned up the broken code blocks, removed my previous conversational text, fixed the heading hierarchy (so it outlines perfectly in GitHub), and completed the Quick Setup section that got cut off in your copy-paste.
-
-Just copy this entire block and paste it directly into your `README.md` file!
+Auto Dubber Pro is a fully automated Python pipeline that takes English video scripts and localizes them for an Indian audience. It uses **Google Gemini AI** for context-aware Hinglish translation, **Microsoft Edge TTS** for neural voice generation, auto-generates **SRT subtitle files**, and blends everything with background music — all in one run.
 
 ---
 
-```markdown
-# 🎙️ Auto-Dubber Pro: AI YouTube Shorts Localizer
+## ✨ What It Does
 
-An automated, end-to-end Python pipeline that localizes English YouTube Shorts for an Indian audience. This tool uses Large Language Models (LLMs) to translate English scripts into context-aware Hinglish, generates high-fidelity neural text-to-speech, creates automatic subtitle timings, and mixes the final vocal track with background music.
+| Step | What Happens |
+|---|---|
+| 1️⃣ Translate | Gemini AI translates English scripts into natural, topic-aware Hinglish |
+| 2️⃣ Voice | Edge TTS generates realistic Hindi neural audio (hi-IN-MadhurNeural) |
+| 3️⃣ Subtitles | Auto-generates perfectly timed `.srt` subtitle files |
+| 4️⃣ Mix | Blends the voice with background music using pydub |
 
-## ⚙️ Prerequisites
-Before running this on a new machine, ensure you have the following installed:
-1. **Python 3.11 or 3.12** (Avoid Python 3.14+ to ensure maximum AI package compatibility).
-2. **FFmpeg**: Required for `pydub` to process `.mp3` files.
-   * *Windows Quick Install*: Download the latest Windows `.zip` build from `gyan.dev`. Extract it, open the `bin` folder, and drop `ffmpeg.exe` and `ffprobe.exe` directly into your virtual environment's `Scripts` folder (`.venv\Scripts\`).
+---
 
-## 🚀 Quick Setup Instructions
-If you are deploying this code on a new computer, follow these exact steps:
+## 🛠️ Tech Stack
 
-1. **Create a Virtual Environment:**
-   ```bash
-   python -m venv .venv
+- **Google Gemini 2.5 Flash** — Context-aware translation engine
+- **Microsoft Edge TTS** — Neural text-to-speech (100+ voices)
+- **pydub** — Audio mixing and processing
+- **asyncio** — Async audio streaming for real-time subtitle timing
+- **ffmpeg** — Backend audio processing
 
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/dhruvinkhant333/auto-dubber-pro.git
+cd auto-dubber-pro
 ```
 
-2. **Activate the Environment:**
-* Windows: `.\.venv\Scripts\activate`
-* Mac/Linux: `source .venv/bin/activate`
+### 2. Create a virtual environment
+```bash
+python -m venv .venv
 
+# Activate — Windows
+.\.venv\Scripts\activate
 
-3. **Install all Dependencies:**
+# Activate — Mac/Linux
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
-
 ```
 
-
-
----
-
-## 📖 Beginner's Guide: How to Use the Auto-Dubber Pro
-
-Welcome! This program takes your English video scripts and automatically turns them into ready-to-upload Hinglish audio tracks with perfectly synced background music and subtitles.
-
-You do not need to be a coding expert to use this. You only need to change a few lines of text at the very top and very bottom of the code.
-
-### Step 1: The Setup (Getting your files ready)
-
-Before you run the code, you need two things inside your project folder:
-
-1. **The Code:** Your `localization_pipeline.py` file.
-2. **The Music:** Download a copyright-free background song (like a phonk beat or chill lofi track). Save it in the exact same folder as your code and name it `chill_beat.mp3`. *(If your song has a different name, that is okay, we will tell the code its name in Step 3!)*
-
-### Step 2: Connect the "Brain" (The API Key)
-
-The program needs permission to use Google's AI to translate your script.
-
-1. Open the code in your editor (like VS Code).
-2. Look near the very top (around Line 10) for this:
-`GEMINI_API_KEY = "YOUR_API_KEY_HERE"`
-3. Delete `YOUR_API_KEY_HERE` and paste your actual Google API key inside the quotation marks.
-
-### Step 3: The Control Center (Customizing your Video)
-
-Scroll all the way down to the bottom of the code to the `async def main():` section. This is your control center. Here are the 3 features you can change for every new video:
-
-* **Feature 1: The Topic (Context-Aware AI)**
-Look for `VIDEO_TOPIC = "Home Dumbbell Workout"`. Change the text inside the quotes to match whatever your video is about.
-*Why?* If you type `"GTA V Gameplay"`, the AI will translate your script using gamer slang. If you type `"F1 Racing"`, it will use racing terms.
-* **Feature 2: The Background Music**
-Look for `BACKGROUND_BEAT = "chill_beat.mp3"`. If your music file is named something else (like `epic_music.mp3`), change it here so the program knows which file to mix with your voice.
-* **Feature 3: Your Script (The Bulk Processor)**
-Look for the `scripts = [ ... ]` section. This is where you type what you want the AI voice to say.
-* Replace the English sentences with your own script.
-* Keep each sentence or paragraph inside its own set of quotation marks `""` and separate them with a comma `,`.
-* *Why?* The program processes the video in "chunks." For every line you write, it will generate a separate, clean audio clip.
-
-
-
-### Step 4: Run the Program
-
-Once your script is typed in, simply hit the **Run** (Play) button in VS Code, or type `python localization_pipeline.py` in your terminal.
-
-Sit back and watch the terminal. It will tell you exactly what it is doing: translating, generating audio, and mixing the beat.
+### 4. Install FFmpeg (required for pydub)
+- Download from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/)
+- Extract and place `ffmpeg.exe` + `ffprobe.exe` in your `.venv\Scripts\` folder
 
 ---
 
-## 🧩 How the Functions Work
+## 🔑 Setup
 
-### `main()`
+Open `main.py` and update these 3 things at the top:
 
-* **What it does:** This is the execution loop. It iterates through your array of script chunks, feeding them through the translation, dubbing, and mixing functions sequentially.
+```python
+# Your Google Gemini API Key
+GEMINI_API_KEY = "your_api_key_here"
 
----
+# Where output files should be saved
+OUTPUT_FOLDER = r"C:\your\output\folder"
 
-## 📂 Output Files Explained
+# Path to your background music file
+BACKGROUND_MUSIC_PATH = r"C:\your\music\chill_beat.mp3"
+```
 
-When you run the script, it generates specific files for every line of text in your script array. Here is what they are and how to use them:
-
-### 🎵 The Audio File (`clip_X_voice.mp3` / `clip_X_FINAL.mp3`)
-
-* **What it is:** This is the standard audio file containing your generated AI voiceover. If you enabled background music mixing, you will also see a `_FINAL.mp3` version which has the voice and music already blended perfectly together.
-* **When and Where to use it:** Drag and drop this file directly into the audio timeline of your video editing software (like Premiere Pro, CapCut, DaVinci Resolve, or VN Editor) to serve as the main voice track for your YouTube Short.
-
-### 📝 The Subtitle File (`clip_X_subs.srt`)
-
-* **What it is:** An SRT (SubRip Subtitle) file. It is a plain-text file that contains the exact words spoken in the audio, along with exact, millisecond-perfect timestamp codes telling the video editor exactly when to display each word on the screen.
-* **When and Where to use it:** * **In your Editor:** Drag this file directly into your Premiere Pro or CapCut timeline, and it will automatically generate perfectly synced, customizable text captions on your video.
-* **On YouTube:** When uploading your video to YouTube Studio, you can choose to upload this `.srt` file in the "Subtitles" section to instantly provide perfectly accurate closed captions for your audience.
-
-
+> ⚠️ Never push your API key to GitHub. Use a `.env` file and add it to `.gitignore`
 
 ---
 
-## 💡 Bonus Feature: Changing the Voice
+## 🚀 Usage
 
-By default, the script uses a high-quality Indian Male voice (`hi-IN-MadhurNeural`). Want a female voice instead?
+### Step 1 — Set your video topic and scripts
 
-1. Open the Python script.
-2. Scroll to the middle of the code to the `generate_audio_and_subs` function.
-3. Find this exact line: `voice = "hi-IN-MadhurNeural"`
-4. Change it to: `voice = "hi-IN-SwaraNeural"`
+Scroll to `async def main()` and update:
 
-### 🌍 How to Access More Voices (US, UK, and more!)
+```python
+VIDEO_TOPIC = "Home Dumbbell Workout"  # Change to your video topic
 
-This tool isn't just limited to Hinglish! The `edge-tts` engine has hundreds of premium voices from all over the world built right in.
+scripts = [
+    "What's up guys! Today we are hitting a crazy dumbbell workout at home.",
+    "Grab your weights, make sure your form is tight, and let's build some muscle.",
+    "Don't forget to like and subscribe for more daily fitness routines!"
+]
+```
 
-If you want to see the complete list of every voice available:
+The `VIDEO_TOPIC` makes Gemini use the right slang — `"GTA V Gameplay"` gives gamer terms, `"F1 Racing"` gives racing terms, etc.
 
-1. Open your terminal (ensure your virtual environment is active).
-2. Run this exact command:
+### Step 2 — Run
+
+```bash
+python main.py
+```
+
+---
+
+## 📂 Output Files
+
+For every line in your `scripts` array, the tool generates:
+
+| File | Description |
+|---|---|
+| `clip_1_voice.mp3` | Raw AI voice audio |
+| `clip_1_subs.srt` | Perfectly timed subtitle file |
+| `clip_1_FINAL.mp3` | Voice mixed with background music |
+
+**How to use them:**
+- Drop `_FINAL.mp3` into CapCut, Premiere Pro, or DaVinci Resolve as your audio track
+- Import `_subs.srt` into your editor or upload directly to YouTube Studio for auto-captions
+
+---
+
+## 🎤 Changing the Voice
+
+Default voice is `hi-IN-MadhurNeural` (Indian Male). To change it, find this line in `generate_audio_and_subs()`:
+
+```python
+voice = "hi-IN-MadhurNeural"
+```
+
+Some alternatives:
+- `hi-IN-SwaraNeural` — Indian Female
+- `en-US-ChristopherNeural` — US English Male
+- `en-GB-SoniaNeural` — UK English Female
+
+To see all 400+ available voices:
 ```bash
 edge-tts --list-voices
-
 ```
-
-
-3. Hit Enter, and it will print out a massive list of voices. You will see options like:
-* `en-US-ChristopherNeural` (US English, Male)
-* `en-GB-SoniaNeural` (UK English, Female)
-* `en-AU-NatashaNeural` (Australian English, Female)
-
-
-4. Just copy the exact name of the voice you want and paste it into the `voice = "..."` line in your script!
 
 ---
 
-## 👨‍💻 Author Info
+## 🧩 Project Structure
 
-* **Developed by:** leo
-* **Role:** AI & Data Science Student
-* **Version:** 1.0.0
+```
+auto-dubber-pro/
+│
+├── main.py               # Full pipeline script
+├── requirements.txt      # Python dependencies
+├── .gitignore            # Excludes .env and output files
+└── README.md
+```
+
+---
+
+## 📋 Requirements
+
+```
+google-genai
+edge-tts
+pydub
+```
+
+---
+
+## 👨‍💻 About
+
+**Dhruvin Khant** — BE Student | AI & Data Science | GEC Rajkot  
+Built as a personal AI project to explore LLM APIs, TTS systems, and audio processing.
+
+---
+
+## 📄 License
+
+MIT License — free to use and modify.
