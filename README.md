@@ -150,6 +150,6 @@ edge-tts --list-voices
 
 ## 👨‍💻 Author Info
 
-* **Developed by:** leo
+* **Developed by:** Dhruvin khant
 * **Role:** AI & Data Science Student
 * **Version:** 1.0.0
