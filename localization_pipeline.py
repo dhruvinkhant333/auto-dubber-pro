@@ -9,7 +9,7 @@ import os
 # ==========================================
 # 1. CONFIGURATION & CUSTOM PATHS
 # ==========================================
-GEMINI_API_KEY = "AIzaSyDRXzWaWNVxBOqfWoyhptxH0jwhjzUwTYw"
+GEMINI_API_KEY = "enter_your_API_key_here"
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 # 👉 CUSTOM PATH 1: Where do you want the final files saved?
